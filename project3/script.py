@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 from scipy.io import loadmat
 from scipy.optimize import minimize
 np.set_printoptions(threshold='inf')
@@ -184,6 +185,7 @@ def blrPredict(W, data):
     data_with_bias = np.concatenate((bias,data),axis=1)
     
     p = np.dot(data_with_bias,W)
+    p = sigmoid(p)
     #print(p)
     
     count=0
@@ -287,6 +289,7 @@ for i in range(n_class):
     nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
     W[:, i] = nn_params.x.reshape((n_feature + 1,))
 
+pickle.dump(W, open( "weights.p", "wb" ))
 # Find the accuracy on Training Dataset
 predicted_label = blrPredict(W, train_data)
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
