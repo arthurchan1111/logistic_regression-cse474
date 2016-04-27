@@ -279,7 +279,7 @@ for i in range(n_class):
 # Logistic Regression with Gradient Descent
 W = np.zeros((n_feature + 1, n_class))
 initialWeights = np.zeros((n_feature + 1, 1))
-opts = {'maxiter': 1000}
+opts = {'maxiter': 100}
 for i in range(n_class):
     print("MADE IT TO CLASS: ", i)
     labeli = Y[:, i].reshape(n_train, 1)
