@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
+from sklearn import svm
+from sklearn.svm import SVC
 
 
 def preprocess():
@@ -240,6 +242,31 @@ print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_la
 """
 Script for Support Vector Machine
 """
+
+newtrain_label = train_label.shape[0]
+newvalidation_label = validation_label.shape[0]
+newtest_label = test_label.shape[0]
+
+clf= SVC(kernel='linear')
+clf.fit(train_data,newtrain_label)
+print('Training Set Accuracy(linear):' + str(clf.score(train_data,newtrain_label)*100) + '%\n') 
+print('Validation Set Accuracy(linear):' + str(clf.score(validation_data,newvalidation_label)*100)+'%\n')
+print('Testing Set Accuracy(linear):'  + str(clf.score(validation_data,newvalidation_label)*100)+'%\n' )
+
+
+clf=SVC(kernel='rbf',gamma=1.0)
+clt.fit(train_data,newtrain_label)
+print('Training Set Accuracy(rbf_gamma1):' + str(clf.score(train_data,newtrain_label)*100) + '%\n')
+print('Validation Set Accuracy(rbf_gamma1):' + str(clf.score(validation_data,newvalidation_label)*100)+'%\n')
+print('Testing Set Accuracy(rbf_gamma1):'  + str(clf.score(validation_data,newvalidation_label)*100)+'%\n' )
+
+clf=SVC(kernel='rbf')
+clf.fit(train_data,newtrain_label)
+print('Training Set Accuracy(rbf_default):' + str(clf.score(train_data,newtrain_label)*100) + '%\n')
+print('Validation Set Accuracy(rbf_default):' + str(clf.score(validation_data,newvalidation_label)*100)+'%\n')
+print('Testing Set Accuracy(rbf_defualt):'  + str(clf.score(validation_data,newvalidation_label)*100)+'%\n' )
+
+
 
 print('\n\n--------------SVM-------------------\n\n')
 ##################
