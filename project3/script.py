@@ -3,7 +3,6 @@ from scipy.io import loadmat
 from scipy.optimize import minimize
 from sklearn import svm
 from sklearn.svm import SVC
-from multiprocessing import process
 
 
 def preprocess():
@@ -255,50 +254,97 @@ clf.fit(train_data, newtrain_label)
 print('Training Set Accuracy(linear):' + str(clf.score(train_data, newtrain_label) * 100) + '%\n') 
 print('Validation Set Accuracy(linear):' + str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
 print('Testing Set Accuracy(linear):' + str(clf.score(test_data, newtest_label) * 100) + '%\n')
-
-
+ 
+ 
 clf = SVC(kernel='rbf', gamma=1.0)
 clf.fit(train_data, newtrain_label)
 print('Training Set Accuracy(rbf_gamma1):' + str(clf.score(train_data, newtrain_label) * 100) + '%\n')
 print('Validation Set Accuracy(rbf_gamma1):' + str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
 print('Testing Set Accuracy(rbf_gamma1):' + str(clf.score(test_data, newtest_label) * 100) + '%\n')
-
+ 
 clf = SVC(kernel='rbf')
 clf.fit(train_data, newtrain_label)
 print('Training Set Accuracy(rbf_default):' + str(clf.score(train_data, newtrain_label) * 100) + '%\n')
 print('Validation Set Accuracy(rbf_default):' + str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
 print('Testing Set Accuracy(rbf_defualt):' + str(clf.score(test_data, newtest_label) * 100) + '%\n')
 
-c_values = np.array([1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-start = 0
-def foo(c):
+c = 1
+clf = SVC(kernel='rbf', C=c)    
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
 
-    clf = SVC(kernel='rbf', C=c)
-    clf.fit(train_data, newtrain_label)
-    print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
-    print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
-    print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+c = 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
 
-p1 = process(target=foo, args=(1))
-p10 = process(target=foo, args=(10))
-p2 = process(target=foo, args=(20))
-p3 = process(target=foo, args=(30))
-p4 = process(target=foo, args=(40))
-p5 = process(target=foo, args=(50))
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
 
-p1.start()
-p10.start()
-p2.start()
-p3.start()
-p4.start()
-p5.start()
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
 
-p1.join()
-p10.join()
-p2.join()
-p3.join()
-p4.join()
-p5.join() 
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
+c = c + 10
+clf = SVC(kernel='rbf', C=c)
+clf.fit(train_data, newtrain_label)
+print('Training Set Accuracy(rbf_c', c, '):', str(clf.score(train_data, newtrain_label) * 100) + '%\n')
+print('Validation Set Accuracy(rbf_c', c, '):', str(clf.score(validation_data, newvalidation_label) * 100) + '%\n')
+print('Testing Set Accuracy(rbf_c', c, '):', str(clf.score(test_data, newtest_label) * 100) + '%\n')
+
 ##################
 # YOUR CODE HERE #
 ##################
