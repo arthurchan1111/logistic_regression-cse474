@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 from scipy.io import loadmat
 from scipy.optimize import minimize
 from sklearn import svm
