@@ -89,7 +89,6 @@ def preprocess():
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
 
-
 def blrObjFunction(initialWeights, *args):
     """
     blrObjFunction computes 2-class Logistic Regression error function and
@@ -105,8 +104,11 @@ def blrObjFunction(initialWeights, *args):
         error_grad: the vector of size (D+1) x 1 representing the gradient of
                     error function
     """
+    global count
     train_data, labeli = args
 
+    #print("weights: ", initialWeights)
+    #print("data: ", train_data)
     n_data = train_data.shape[0]
     n_features = train_data.shape[1]
     error = 0
@@ -117,6 +119,43 @@ def blrObjFunction(initialWeights, *args):
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
+    #print(train_data)
+    bias = np.ones((n_data,1))
+    #print(bias)
+    train_data_with_bias = np.concatenate((bias,train_data),axis=1)
+    #print(train_data_with_bias)
+
+    #print("weight size: ", initialWeights.shape)
+    #print("input size: ", train_data_with_bias.shape)
+    theta = np.dot(train_data_with_bias,initialWeights)
+    #print(theta.flatten())
+    theta = sigmoid(theta)
+    #print(theta)
+    ln_theta = np.log(theta)
+    ln_theta = np.transpose(np.array(ln_theta, ndmin=2))
+    ln_one_minus_theta = np.log(1-theta)
+    ln_one_minus_theta = np.transpose(np.array(ln_one_minus_theta, ndmin=2))
+    one_minus_y = 1-labeli
+
+    #print("labeli size: ", labeli.shape, "   ln_theta size: ", ln_theta.shape)
+    elem1 = labeli*ln_theta
+    #print("one_minus_y size: ", one_minus_y.shape, "   ln_one_minus_theta: ", ln_one_minus_theta.shape)
+    elem2 = one_minus_y*ln_one_minus_theta
+    elem3 = elem1 + elem2
+    error = (np.sum(elem3)/n_data)*-1
+    #print(error)
+    theta = np.transpose(np.array(theta, ndmin=2))
+    #print("theta size: ", theta.shape, "   y size: ", labeli.shape)
+    theta_minus_y = theta-labeli
+    error_grad = np.dot(np.transpose(train_data_with_bias),theta_minus_y)
+    #print(error_grad.shape)
+    #error_grad = error_grad.flatten()
+    error_grad = np.transpose(error_grad).flatten()/n_data
+    #print(error_grad)
+    #print(error_grad.shape)
+    #print(error_grad)
+    count = count+1
+    print(error, "   ", count)
     return error, error_grad
 
 
@@ -142,8 +181,29 @@ def blrPredict(W, data):
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
-    return label
+    bias = np.ones((data.shape[0],1))
+    data_with_bias = np.concatenate((bias,data),axis=1)
+    
+    p = np.dot(data_with_bias,W)
+    p = sigmoid(p)
+    #print(p)
+    
+    count=0
+    for x in p:
+        index=0
+        max=0
+        inmax=0
+        for i in x:
+            if i >= max:
+                max=i
+                inmax=index
+            index+=1
+        label[count][0]=inmax
+        count+=1
 
+    #print(label)
+
+    return label
 
 def mlrObjFunction(params, *args):
     """
